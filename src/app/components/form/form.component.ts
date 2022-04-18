@@ -16,14 +16,14 @@ export class FormComponent implements OnInit {
   @Select(TodoState.getSelectedTodo) selectedTodo: Observable<Todo>;
   todoForm: FormGroup;
   editTodo = false;
-  private formSubscription: Subscription = new Subscription();
+  // private formSubscription: Subscription = new Subscription();
 
   constructor(private fb: FormBuilder, private store: Store, private route: ActivatedRoute, private router: Router) {
     this.createForm();
   }
 
   ngOnInit() {
-    this.formSubscription.add(
+    // this.formSubscription.add(
       this.selectedTodo.subscribe(todo => {
         if (todo) {
           this.todoForm.patchValue({
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
           this.editTodo = false;
         }
       })
-    );
+    // );
   }
 
   createForm() {
@@ -49,17 +49,14 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     if (this.editTodo) {
-      this.formSubscription.add(
         this.store.dispatch(new UpdateTodo(this.todoForm.value, this.todoForm.value.id)).subscribe(() => {
           this.clearForm();
         })
-      );
+      // );
     } else {
-      this.formSubscription.add(
-        this.formSubscription = this.store.dispatch(new AddTodo(this.todoForm.value)).subscribe(() => {
+      this.store.dispatch(new AddTodo(this.todoForm.value)).subscribe(() => {
           this.clearForm();
-        })
-      );
+      })
     }
   }
 

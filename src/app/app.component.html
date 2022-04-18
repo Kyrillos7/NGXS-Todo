@@ -1,4 +1,58 @@
-<div class="container">
+<form [formGroup]="userForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        User Form
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="name" placeholder="your name">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+         <mat-form-field class="full-width">
+         <input matInput formControlName="jobTitle" placeholder="job name ">
+         </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="email" placeholder="email">
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <div class="status">
+    <label >Social Status</label>
+    <div class="radio">
+      <mat-radio-group formControlName="status" class="margin-left">
+        <mat-radio-button style="margin: 10px;" name="single"  value="single">Single</mat-radio-button>
+        <mat-radio-button name="married"  value="married">Married</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    </div>
+    <div class="mb-3" *ngIf="userStatus == 'married'" formArrayName="children">
+      <ng-container *ngFor="let child of childrenForm.controls; let childIndex = index;">
+        <div class="col-md-6" [formGroup]="child">
+          <mat-form-field class="full-width">
+            <input type="text" placeholder="Child Name" matInput formControlName="childName" class="mr-3"/>
+          </mat-form-field>
+        </div>
+          <button mat-raised-button color="warn" type="button" (click)="removeChild(childIndex)" class=" ml-3 btn btn-danger">Remove</button>
+          
+          <button type="button" mat-raised-button color="accent" (click)="addChild()" class=" m-2 btn btn-success">Add</button>
+      </ng-container>
+    </div>
+    <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()" type="submit" >submit</button>
+  </mat-card-actions>
+</mat-card>
+</form>
+
+<!-- <div class="container">
   <div class="row">
     <div class="col-md-6">
       <app-form></app-form>
@@ -7,4 +61,4 @@
       <app-list></app-list>
     </div>
   </div>
-</div>
+</div> -->

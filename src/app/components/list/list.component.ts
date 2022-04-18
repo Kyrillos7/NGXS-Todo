@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.store.dispatch(new GetTodos());
+    this.store.dispatch([new GetTodos(), new GetTodos()]);
   }
 
   removeTodo(id: number) {
